@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FindAllAccountVo {
-    private Long accountNumber;
+    private Long id;
+    private Integer accountNumber;
     private String accountType;
-    private String initialBalance;
+    private Integer initialBalance;
     private Long customerId;
 }
