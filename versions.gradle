@@ -1,0 +1,26 @@
+ext {
+    javaxAnnotationApiVersion = '1.3.2'
+    javaxPersistenceApiVersion = '2.2'
+    querydslVersion = '5.0.0'
+    lombokVersion = '1.18.24'
+    postgresqlVersion = '42.5.0'
+    springBootVersion = '2.7.4'
+    springDataJPAVersion = '2.7.3'
+    springdocOpenapiUiVersion = '1.6.11'
+    validationApiVersion = '2.0.1.Final'
+    springWsCoreVersion = '3.1.6'
+    springBootKeycloakVersion = '20.0.2'
+    jsonwebtokenVersion = '0.9.1'
+    hibernateVersion = '5.4.9.Final'
+    jacksonVersion = '2.13.4'
+    sendgridVersion = '4.0.1'
+    keycloackAdminClientVersion = '20.0.2'
+    apacheCommonsLangVersion = '3.14.0'
+    jaxbVersion = '2.3.1'
+    apacheHttpVersion = '4.5.13'
+    itextpdfVersion = '7.1.16'
+    xhtmlrendererVersion = '9.1.13'
+    jsoupVersion = '1.14.3'
+    mapstructVersion = "1.6.0.Beta1"
+    securityCore = "5.7.3"
+}

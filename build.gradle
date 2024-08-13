@@ -1,0 +1,68 @@
+apply from: "./versions.gradle"
+
+ext {
+    baseVersion = '1.0.0-SNAPSHOT'
+}
+
+buildscript {
+    ext.repos = {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
+    repositories repos
+
+    apply from: "./plugins.gradle"
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootPluginVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:${dependenciesManagementPluginVersion}"
+        classpath "gradle.plugin.com.github.ryarnyah:querydsl-gradle-plugin:${querydslPluginVersion}"
+    }
+}
+
+subprojects {
+    apply plugin: "java"
+    apply plugin: "java-library"
+    apply plugin: "io.spring.dependency-management"
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    compileJava {
+        options.encoding = 'UTF-8'
+        options.compilerArgs << '-parameters'
+    }
+
+    compileTestJava {
+        options.encoding = 'UTF-8'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    repositories repos
+
+    dependencyManagement {
+        apply from: project.rootDir.toString() + '/dependencies.gradle'
+    }
+}
+
+allprojects {
+    group = "com.ec.tt"
+    version = "${baseVersion}"
+}
+
+/*repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+*/

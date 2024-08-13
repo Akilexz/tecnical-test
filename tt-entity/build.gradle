@@ -1,0 +1,20 @@
+apply plugin: "com.github.ryarnyah.querydsl"
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    compileOnly 'com.querydsl:querydsl-core'
+    implementation'com.querydsl:querydsl-jpa'
+    implementation 'javax.persistence:javax.persistence-api'
+    compileOnly 'javax.annotation:javax.annotation-api'
+    compileOnly 'javax.validation:validation-api'
+    compileOnly 'org.springframework.data:spring-data-commons'
+    implementation 'org.springframework.data:spring-data-jpa'
+
+    annotationProcessor(
+            "com.querydsl:querydsl-apt:${querydslVersion}:general",
+            "com.querydsl:querydsl-apt:${querydslVersion}:jpa",
+            'javax.persistence:javax.persistence-api',
+            'javax.annotation:javax.annotation-api',
+            'org.projectlombok:lombok'
+    )
+}

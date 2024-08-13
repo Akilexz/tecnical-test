@@ -1,0 +1,12 @@
+dependencies {
+    api project(":tt-person-client")
+
+    // Context
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+
+    // Data
+    implementation 'org.springframework.data:spring-data-jpa'
+    implementation 'javax.persistence:javax.persistence-api'
+    implementation 'com.querydsl:querydsl-jpa'
+    implementation 'org.postgresql:postgresql'
+}

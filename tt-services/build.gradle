@@ -1,0 +1,23 @@
+apply plugin: "org.springframework.boot"
+
+dependencies {
+    api project(":tt-vo")
+    api project(":tt-person-core")
+    api project(":tt-bank-core")
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Documentation API
+    implementation 'org.springdoc:springdoc-openapi-ui'
+
+    // Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.keycloak:keycloak-spring-boot-starter'
+    implementation 'io.jsonwebtoken:jjwt'
+    implementation 'org.keycloak:keycloak-admin-client'
+}
