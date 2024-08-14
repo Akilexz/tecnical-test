@@ -3,6 +3,7 @@ package com.ec.tt.person.customer.services;
 import com.ec.tt.account.vo.common.Status;
 import com.ec.tt.account.vo.customer.CreateCustomerVo;
 import com.ec.tt.account.vo.customer.FindAllCustomerVo;
+import com.ec.tt.account.vo.customer.FindCustomerByIdVo;
 import com.ec.tt.account.vo.customer.UpdateCustomerVo;
 import com.ec.tt.person.customer.repositories.ICustomerRepository;
 import com.ec.tt.person.entities.CustomerEntity;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**
@@ -64,5 +66,11 @@ public class CustomerService implements ICustomerService {
     @Override
     public void delete(Long customerId) {
         customerRepository.deleteCustomer(customerId);
+    }
+
+    @Override
+    public FindCustomerByIdVo findById(Long customerId) {
+        return customerRepository.findById(customerId).orElseThrow(()-> new EntityNotFoundException(
+                "No se encontro resultados."));
     }
 }

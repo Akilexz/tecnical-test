@@ -1,7 +1,9 @@
 package com.ec.tt.client.controllers;
+
 import com.ec.tt.account.vo.common.Response;
 import com.ec.tt.account.vo.customer.CreateCustomerVo;
 import com.ec.tt.account.vo.customer.FindAllCustomerVo;
+import com.ec.tt.account.vo.customer.FindCustomerByIdVo;
 import com.ec.tt.account.vo.customer.UpdateCustomerVo;
 import com.ec.tt.person.customer.services.ICustomerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,12 +26,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotBlank;
-import javax.ws.rs.PathParam;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -44,11 +43,24 @@ public class ClientController {
 
     @GetMapping()
     @Operation(summary = "Get all customer")
-    @ApiResponses(value = { @ApiResponse(responseCode =  "200", description = "List of customer", content = { @Content(
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "List of customer", content = {@Content(
             mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = FindAllCustomerVo.class
     )))})})
     public ResponseEntity<Response<List<FindAllCustomerVo>>> findAll() {
         return new ResponseEntity<>(Response.<List<FindAllCustomerVo>>builder().data(customerService.findAll())
+                .code(HttpStatus.OK.value())
+                .message("SUCCESS").build(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Get all customer")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "List of customer", content = {@Content(
+            mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = FindAllCustomerVo.class
+    )))})})
+    @Parameter(in = ParameterIn.QUERY, description = "id", name = "id",
+            schema = @Schema(type = "long"), example = "1")
+    public ResponseEntity<Response<FindCustomerByIdVo>> findById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(Response.<FindCustomerByIdVo>builder().data(customerService.findById(id))
                 .code(HttpStatus.OK.value())
                 .message("SUCCESS").build(), HttpStatus.OK);
     }
@@ -63,9 +75,9 @@ public class ClientController {
             this.customerService.create(data);
             return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.CREATED.value())
                     .message("Created customer").build(), HttpStatus.CREATED);
-        } catch(Exception e) {
-            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.CREATED.value())
-                    .message("Error to create customer").build(), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message("Error to create customer: " + e).build(), HttpStatus.OK);
         }
     }
 
@@ -79,9 +91,9 @@ public class ClientController {
             this.customerService.update(data);
             return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.OK.value())
                     .message("Updated customer").build(), HttpStatus.OK);
-        } catch(Exception e) {
-            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.OK.value())
-                    .message("Error to update customer").build(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message("Error to update customer: " + e).build(), HttpStatus.OK);
         }
     }
 
@@ -94,9 +106,9 @@ public class ClientController {
             this.customerService.delete(id);
             return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.OK.value())
                     .message("Delete customer").build(), HttpStatus.OK);
-        } catch(Exception e) {
-            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.OK.value())
-                    .message("Error to delete customer").build(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message("Error to delete customer: " + e).build(), HttpStatus.OK);
         }
     }
 }

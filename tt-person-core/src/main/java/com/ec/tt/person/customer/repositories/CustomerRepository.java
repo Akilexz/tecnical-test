@@ -2,9 +2,9 @@ package com.ec.tt.person.customer.repositories;
 
 import com.ec.tt.account.vo.common.Status;
 import com.ec.tt.account.vo.customer.FindAllCustomerVo;
+import com.ec.tt.account.vo.customer.FindCustomerByIdVo;
 import com.ec.tt.common.repositories.JPAQueryDslBaseRepository;
 import com.ec.tt.person.entities.CustomerEntity;
-import com.ec.tt.person.entities.PersonEntity;
 import com.ec.tt.person.entities.QPersonEntity;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Path;
@@ -15,9 +15,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.ec.tt.bank.entities.QAccountEntity.accountEntity;
 import static com.ec.tt.person.entities.QCustomerEntity.customerEntity;
 
 /**
@@ -28,7 +28,7 @@ import static com.ec.tt.person.entities.QCustomerEntity.customerEntity;
  */
 @Lazy
 @Repository
-public class CustomerRepository extends JPAQueryDslBaseRepository<CustomerEntity> implements ICustomerRepository{
+public class CustomerRepository extends JPAQueryDslBaseRepository<CustomerEntity> implements ICustomerRepository {
     public CustomerRepository() {
         super(CustomerEntity.class);
     }
@@ -77,5 +77,19 @@ public class CustomerRepository extends JPAQueryDslBaseRepository<CustomerEntity
         where.and(customerEntity.status.eq(Status.ACTIVE.value));
         updateClause.where(where);
         updateClause.set(customerEntity.status, Status.INACTIVE.value);
+        updateClause.execute();
+    }
+
+    @Override
+    public Optional<FindCustomerByIdVo> findById(Long customerId) {
+        QPersonEntity personEntity = QPersonEntity.personEntity;
+        return from(customerEntity).select(Projections.bean(FindCustomerByIdVo.class,
+                        customerEntity.customerId,
+                        customerEntity.password,
+                        personEntity.id.as("personId")
+                ))
+                .where(customerEntity.status.eq(Status.ACTIVE.value))
+                .where(customerEntity.customerId.eq(customerId))
+                .stream().findFirst();
     }
 }

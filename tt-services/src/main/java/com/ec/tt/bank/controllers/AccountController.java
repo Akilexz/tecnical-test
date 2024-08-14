@@ -41,7 +41,7 @@ public class AccountController {
 
     @GetMapping()
     @Operation(summary = "Get all account")
-    @ApiResponses(value = { @ApiResponse(responseCode =  "200", description = "List of account", content = { @Content(
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "List of account", content = {@Content(
             mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = FindAllAccountVo.class
     )))})})
     public ResponseEntity<Response<List<FindAllAccountVo>>> findAll() {
@@ -60,9 +60,9 @@ public class AccountController {
             this.accountService.create(data);
             return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.CREATED.value())
                     .message("Created account").build(), HttpStatus.CREATED);
-        } catch(Exception e) {
-            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.CREATED.value())
-                    .message("Error to create account").build(), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message("Error to create account: " + e).build(), HttpStatus.OK);
         }
     }
 
@@ -76,9 +76,9 @@ public class AccountController {
             this.accountService.update(data);
             return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.OK.value())
                     .message("Updated account").build(), HttpStatus.OK);
-        } catch(Exception e) {
-            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.OK.value())
-                    .message("Error to update account").build(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message("Error to update account: " + e).build(), HttpStatus.OK);
         }
     }
 
@@ -91,8 +91,8 @@ public class AccountController {
             this.accountService.delete(id);
             return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.OK.value())
                     .message("Delete account").build(), HttpStatus.OK);
-        } catch(Exception e) {
-            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.OK.value())
+        } catch (Exception e) {
+            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                     .message("Error to delete account").build(), HttpStatus.OK);
         }
     }

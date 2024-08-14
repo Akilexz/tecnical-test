@@ -1,7 +1,6 @@
 package com.ec.tt.bank.controllers;
 
 import com.ec.tt.account.vo.common.Response;
-import com.ec.tt.account.vo.customer.FindAllCustomerVo;
 import com.ec.tt.account.vo.transaction.CreateBankTransactionVo;
 import com.ec.tt.account.vo.transaction.FindAllBankTransactionVo;
 import com.ec.tt.account.vo.transaction.FindReportVo;
@@ -45,7 +44,7 @@ public class BankTransactionController {
 
     @GetMapping()
     @Operation(summary = "Get all bankTransaction")
-    @ApiResponses(value = { @ApiResponse(responseCode =  "200", description = "List of bankTransaction", content = { @Content(
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "List of bankTransaction", content = {@Content(
             mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = FindAllBankTransactionVo.class
     )))})})
     public ResponseEntity<Response<List<FindAllBankTransactionVo>>> findAll() {
@@ -64,9 +63,9 @@ public class BankTransactionController {
             this.bankTransactionService.create(data);
             return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.CREATED.value())
                     .message("Created bankTransaction").build(), HttpStatus.CREATED);
-        } catch(Exception e) {
-            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.CREATED.value())
-                    .message("Error to create bankTransaction: " + e).build(), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message("Error to create bankTransaction: " + e).build(), HttpStatus.OK);
         }
     }
 
@@ -80,9 +79,9 @@ public class BankTransactionController {
             this.bankTransactionService.update(data);
             return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.OK.value())
                     .message("Updated bankTransaction").build(), HttpStatus.OK);
-        } catch(Exception e) {
-            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.OK.value())
-                    .message("Error to update bankTransaction").build(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message("Error to update bankTransaction: " + e).build(), HttpStatus.OK);
         }
     }
 
@@ -95,15 +94,15 @@ public class BankTransactionController {
             this.bankTransactionService.delete(id);
             return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.OK.value())
                     .message("Delete bankTransaction").build(), HttpStatus.OK);
-        } catch(Exception e) {
-            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.OK.value())
-                    .message("Error to delete bankTransaction").build(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message("Error to delete bankTransaction: " + e).build(), HttpStatus.OK);
         }
     }
 
     @GetMapping("/reportes")
     @Operation(summary = "Get report")
-    @ApiResponses(value = { @ApiResponse(responseCode =  "200", description = "List of report", content = { @Content(
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "List of report", content = {@Content(
             mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = FindReportVo.class
     )))})})
     @Parameter(in = ParameterIn.PATH, description = "initialDate", name = "initialDate",
@@ -113,7 +112,7 @@ public class BankTransactionController {
     public ResponseEntity<Response<List<FindReportVo>>> findReport(@RequestParam("initialDate") Long initialDate,
                                                                    @RequestParam("endDate") Long endDate) {
         return new ResponseEntity<>(Response.<List<FindReportVo>>builder().data(bankTransactionService.findReport(
-                new Date(initialDate), new Date(endDate)))
+                        new Date(initialDate), new Date(endDate)))
                 .code(HttpStatus.OK.value())
                 .message("SUCCESS").build(), HttpStatus.OK);
     }

@@ -12,7 +12,6 @@ import com.querydsl.jpa.impl.JPAUpdateClause;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -69,7 +68,7 @@ public class AccountRepository extends JPAQueryDslBaseRepository<AccountEntity> 
             updateClause.set(property, value);
             return true;
         }
-        System.out.println("no se presento cambios");
+        System.out.println("no se presento cambios: " + logMessage);
         return false;
     }
 
@@ -81,6 +80,7 @@ public class AccountRepository extends JPAQueryDslBaseRepository<AccountEntity> 
         where.and(accountEntity.status.eq(Status.ACTIVE.value));
         updateClause.where(where);
         updateClause.set(accountEntity.status, Status.INACTIVE.value);
+        updateClause.execute();
     }
 
     @Override
@@ -109,7 +109,7 @@ public class AccountRepository extends JPAQueryDslBaseRepository<AccountEntity> 
                 .stream().findFirst();
     }
 
-    public static boolean isNegative(Integer number) {
+    public boolean isNegative(Integer number) {
         return number < 0;
     }
 }

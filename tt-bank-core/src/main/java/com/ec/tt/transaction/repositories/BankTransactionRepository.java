@@ -1,10 +1,8 @@
 package com.ec.tt.transaction.repositories;
 
-import com.ec.tt.account.repositories.IAccountRepository;
 import com.ec.tt.account.vo.common.Status;
 import com.ec.tt.account.vo.transaction.FindAllBankTransactionVo;
 import com.ec.tt.account.vo.transaction.FindReportVo;
-import com.ec.tt.bank.entities.AccountEntity;
 import com.ec.tt.bank.entities.BankTransactionEntity;
 import com.ec.tt.bank.entities.QAccountEntity;
 import com.ec.tt.common.repositories.JPAQueryDslBaseRepository;
@@ -15,7 +13,6 @@ import com.querydsl.core.types.Path;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAUpdateClause;
-import com.querydsl.sql.SQLExpressions;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +21,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.ec.tt.bank.entities.QAccountEntity.accountEntity;
 import static com.ec.tt.bank.entities.QBankTransactionEntity.bankTransactionEntity;
 
 /**
@@ -90,6 +86,7 @@ public class BankTransactionRepository extends JPAQueryDslBaseRepository<BankTra
         where.and(bankTransactionEntity.status.eq(Status.ACTIVE.value));
         updateClause.where(where);
         updateClause.set(bankTransactionEntity.status, Status.INACTIVE.value);
+        updateClause.execute();
     }
 
     @Override

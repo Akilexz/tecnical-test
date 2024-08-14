@@ -2,6 +2,7 @@ package com.ec.tt.person.customer.services;
 
 import com.ec.tt.account.vo.customer.CreateCustomerVo;
 import com.ec.tt.account.vo.customer.FindAllCustomerVo;
+import com.ec.tt.account.vo.customer.FindCustomerByIdVo;
 import com.ec.tt.account.vo.customer.UpdateCustomerVo;
 import com.ec.tt.person.entities.CustomerEntity;
 
@@ -55,4 +56,12 @@ public interface ICustomerService {
      * @param customerId Long
      */
     void delete(Long customerId);
+
+    /**
+     * find by id
+     *
+     * @param customerId Long
+     * @return FindCustomerByIdVo
+     */
+    FindCustomerByIdVo findById(Long customerId);
 }

@@ -45,11 +45,14 @@ dependencyManagement {
 
         dependency("org.springframework.security:spring-security-core:${securityCore}")
         dependency("org.apache.commons:commons-lang3:${apacheCommonsLangVersion}")
-    }
-}
 
-dependencies {
-    // Dependencias de test
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+        dependencySet(group: 'org.junit.jupiter', version: "5.7.2"){
+            entry 'junit-jupiter-api'
+            entry 'junit-jupiter-engine'
+        }
+        dependencySet(group: 'org.mockito', version: "4.0.0"){
+            entry 'mockito-core'
+            entry 'mockito-junit-jupiter'
+        }
+    }
 }

@@ -59,7 +59,7 @@ public class AccountService implements IAccountService {
     @Override
     public void update(UpdateAccountVo accountVo) {
         accountRepository.updateAccount(AccountEntity.builder()
-                        .id(accountVo.getId())
+                .id(accountVo.getId())
                 .accountNumber(accountVo.getAccountNumber())
                 .accountType(accountVo.getAccountType())
                 .initialBalance(accountVo.getInitialBalance())
@@ -74,12 +74,12 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public AccountEntity checkIfThereIsMoneyRequired(Long accountId, Integer amount){
-        return accountRepository.checkIfThereIsMoneyRequired(accountId, amount).orElseThrow(()-> new EntityNotFoundException("Saldo no disponible"));
+    public AccountEntity checkIfThereIsMoneyRequired(Long accountId, Integer amount) {
+        return accountRepository.checkIfThereIsMoneyRequired(accountId, amount).orElseThrow(() -> new EntityNotFoundException("Saldo no disponible"));
     }
 
     @Override
     public AccountEntity findById(Long accountId) {
-        return accountRepository.findByAccountId(accountId).orElseThrow(()-> new EntityNotFoundException("No se encontro el account"));
+        return accountRepository.findByAccountId(accountId).orElseThrow(() -> new EntityNotFoundException("No se encontro el account"));
     }
 }
