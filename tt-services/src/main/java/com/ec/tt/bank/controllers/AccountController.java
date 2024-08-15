@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotBlank;
@@ -55,7 +56,7 @@ public class AccountController {
     @io.swagger.v3.oas.annotations.parameters.RequestBody(required = true, description =
             "Information needed to save account", content = {@Content(mediaType = "application/json",
             schema = @Schema(implementation = CreateAccountVo.class))})
-    public ResponseEntity<Response<Boolean>> create(@RequestBody CreateAccountVo data) {
+        public ResponseEntity<Response<Boolean>> create(@RequestBody CreateAccountVo data) {
         try {
             this.accountService.create(data);
             return new ResponseEntity<>(Response.<Boolean>builder().code(HttpStatus.CREATED.value())

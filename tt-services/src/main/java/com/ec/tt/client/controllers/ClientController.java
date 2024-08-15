@@ -53,7 +53,7 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Get all customer")
+    @Operation(summary = "Get customer by id")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "List of customer", content = {@Content(
             mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = FindAllCustomerVo.class
     )))})})

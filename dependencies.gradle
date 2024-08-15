@@ -5,6 +5,7 @@ dependencyManagement {
         dependencySet(group: 'org.springframework.boot', version: "${springBootVersion}") {
             //entry 'spring-boot-starter-web'
             entry 'spring-boot-starter-cache'
+            entry 'spring-boot-starter-test'
         }
 
         // Persistence
@@ -18,6 +19,7 @@ dependencyManagement {
             entry 'querydsl-jpa'
             entry 'querydsl-core'
             entry 'querydsl-apt'
+            entry 'querydsl-sql'
         }
         dependency("org.postgresql:postgresql:${postgresqlVersion}")
 
@@ -46,11 +48,11 @@ dependencyManagement {
         dependency("org.springframework.security:spring-security-core:${securityCore}")
         dependency("org.apache.commons:commons-lang3:${apacheCommonsLangVersion}")
 
-        dependencySet(group: 'org.junit.jupiter', version: "5.7.2"){
+        dependencySet(group: 'org.junit.jupiter', version: "${junitJupiter}"){
             entry 'junit-jupiter-api'
             entry 'junit-jupiter-engine'
         }
-        dependencySet(group: 'org.mockito', version: "4.0.0"){
+        dependencySet(group: 'org.mockito', version: "${mockito}"){
             entry 'mockito-core'
             entry 'mockito-junit-jupiter'
         }

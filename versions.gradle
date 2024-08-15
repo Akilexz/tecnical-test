@@ -23,4 +23,6 @@ ext {
     jsoupVersion = '1.14.3'
     mapstructVersion = "1.6.0.Beta1"
     securityCore = "5.7.3"
+    junitJupiter = "5.7.2"
+    mockito = "4.0.0"
 }

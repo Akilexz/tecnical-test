@@ -8,7 +8,7 @@ dependencies {
     implementation 'org.springframework.data:spring-data-jpa'
     implementation 'javax.persistence:javax.persistence-api'
     implementation 'com.querydsl:querydsl-jpa'
-    implementation 'com.querydsl:querydsl-sql:5.0.0'
+    implementation 'com.querydsl:querydsl-sql'
     implementation 'org.postgresql:postgresql'
 
     // Dependencias de test

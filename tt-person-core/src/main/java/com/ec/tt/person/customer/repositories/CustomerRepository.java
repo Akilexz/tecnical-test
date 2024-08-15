@@ -88,6 +88,7 @@ public class CustomerRepository extends JPAQueryDslBaseRepository<CustomerEntity
                         customerEntity.password,
                         personEntity.id.as("personId")
                 ))
+                .leftJoin(customerEntity.person, personEntity).on(personEntity.status.eq(Status.ACTIVE.value))
                 .where(customerEntity.status.eq(Status.ACTIVE.value))
                 .where(customerEntity.customerId.eq(customerId))
                 .stream().findFirst();

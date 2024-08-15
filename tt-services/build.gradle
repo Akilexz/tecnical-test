@@ -20,4 +20,11 @@ dependencies {
     implementation 'org.keycloak:keycloak-spring-boot-starter'
     implementation 'io.jsonwebtoken:jjwt'
     implementation 'org.keycloak:keycloak-admin-client'
+
+    // Dependencias de test
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation 'org.mockito:mockito-core'
+    testImplementation 'org.mockito:mockito-junit-jupiter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
