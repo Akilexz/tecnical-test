@@ -1,11 +1,9 @@
-package com.ec.tt.person.user.repositories;
+package com.ec.tt.common.repositories;
 
 import com.ec.tt.account.vo.common.Status;
-import com.ec.tt.common.repositories.JPAQueryDslBaseRepository;
 import com.ec.tt.person.entities.UserEntity;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
-
 
 import java.util.Optional;
 
@@ -19,7 +17,7 @@ import static com.ec.tt.person.entities.QUserEntity.userEntity;
  */
 @Lazy
 @Repository
-public class UserRepository extends JPAQueryDslBaseRepository<UserEntity> implements IUserRepository {
+public class UserRepository extends JPAQueryDslBaseRepository<UserEntity> implements com.ec.tt.person.user.repositories.IUserRepository {
 
     public UserRepository() {
         super(UserEntity.class);

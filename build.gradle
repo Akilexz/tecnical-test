@@ -49,6 +49,9 @@ subprojects {
 
     dependencyManagement {
         apply from: project.rootDir.toString() + '/dependencies.gradle'
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:2021.0.3"
+        }
     }
 }
 
@@ -56,13 +59,3 @@ allprojects {
     group = "com.ec.tt"
     version = "${baseVersion}"
 }
-
-/*repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-}
-*/
